@@ -29,7 +29,7 @@ You can use this as a boilerplate to write custom resolvers with Hasura GraphQL 
 npm install
 ```
 
-2. Set appropriate environment variables for the GraphQL Engien URL, the access key to GraphQL Engine and the Postgres connection string.
+2. Set appropriate environment variables for the GraphQL Engine URL, the access key to GraphQL Engine and the Postgres connection string.
 
 
 ```bash
@@ -76,7 +76,7 @@ This project comes with a `Dockerfile`. You can deploy it wherever you wish.
 
 ## Implementation Details
 
-We will use Apollo's `graphql-tools` library to make a working GraphQL Schema out of our custom resolvers. Finally, we will merge these resolvers with the existing Hasura schema so that it can eb queried under the same endpoint.
+We will use Apollo's `graphql-tools` library to make a working GraphQL Schema out of our custom resolvers. Finally, we will merge these resolvers with the existing Hasura schema so that it can be queried under the same endpoint.
 
 ### Writing type definitions
 
@@ -146,7 +146,7 @@ const resolvers = {
 };
 ```
 
-### Making a new schemna out of these custom resolvers
+### Making a new schema out of these custom resolvers
 
 Use `makeExecutableSchema()` function from the `graphql-tools` library to make a schema out of the type definitions and resolvers above.
 
