@@ -15,7 +15,7 @@
     "apollo-utilities": "^1.0.20",
     "esm": "^3.0.61",
     "graphql": "^0.13.2",
-    "graphql-tools-with-subscriptions": "^1.0.0",
+    "graphql-tools": "^4.0.3",
     "knex": "^0.15.2",
     "node-fetch": "^2.1.2",
     "pg": "^7.4.3",

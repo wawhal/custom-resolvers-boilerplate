@@ -2,7 +2,13 @@ import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import ws from 'ws';
-import { makeRemoteExecutableSchema, introspectSchema } from 'graphql-tools';
+import {
+  makeRemoteExecutableSchema,
+  introspectSchema,
+  transformSchema,
+  RenameTypes,
+  RenameRootFields
+} from 'graphql-tools';
 import fetch from 'node-fetch';
 import { split } from 'apollo-link';
 import { getMainDefinition } from 'apollo-utilities';
@@ -13,10 +19,23 @@ const { HASURA_GRAPHQL_ENGINE_AUTH_HOOK } = process.env;
 export const getRemoteSchema = async (uri, headers) => {
   const link = makeHttpAndWsLink(uri, headers);
   const schema = await introspectSchema(link);
-  return makeRemoteExecutableSchema({
+  return renameSchema (
+    makeRemoteExecutableSchema({
+      schema,
+      link
+    }),
+    'hasura'
+  );
+};
+
+const renameSchema = (schema, prefix) => {
+ return transformSchema(
     schema,
-    link
-  });
+    [
+      new RenameTypes((type) => `${prefix}_${type}`),
+      new RenameRootFields((operation, name) => `${prefix}_${name}`)
+    ]
+  );     
 };
 
 /* create an apollo-link instance that makes
